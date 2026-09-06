@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: tree-ai-agent
+  profiles:
+    active: local
+  ai:
+    vectorstore:
+      pgvector:
+        index-type: HNSW
+        distance-type: COSINE_DISTANCE
+        max-document-batch-size: 10000
+    dashscope:
+      chat:
+        enabled: false
+      api-key: ${DASHSCOPE_API_KEY:}
+    openai:
+      api-key: ${OPENAI_API_KEY:}
+      base-url: ${OPENAI_BASE_URL:https://api.deepseek.com/}
+      chat:
+        options:
+          model: deepseek-chat
+    mcp:
+      client:
+        stdio:
+          servers-configuration: classpath:mcp-config.json
+  # datasource:
+  #   url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/tree_ai_agent}
+  #   username: ${DATASOURCE_USERNAME:}
+  #   password: ${DATASOURCE_PASSWORD:}
+server:
+  port: 8123
+  servlet:
+    context-path: /api
